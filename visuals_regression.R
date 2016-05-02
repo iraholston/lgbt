@@ -38,7 +38,7 @@ ggplot(df, aes(x=overall, y=evanrate))+
   labs(title= "", x="Support for LGBT Rights", y="Evangelical Adhererence Rate")+
   ggtitle(expression(atop(bold("Evangelicals and LGBT Rights"))))+
   geom_text(aes(label=state.x), vjust=-1, hjust=0.5, size=2)+
-  theme(plot.title = element_text(size = 16, face = "bold", colour = "black", vjust = 0.5, hjust=0.5))
+  theme(plot.title = element_text(size = 16, face = "bold", colour = "black", vjust = 0.5, hjust=0.5)) + geom_point(data = subset(df, statename == "arizona"), size = 5, colour = "maroon")
 
 
 reg1 <- lm(overall ~ totalpop + popper + ideology + evanrate, data =df)
