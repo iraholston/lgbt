@@ -12,3 +12,5 @@ There are three data sources.
 I've merged those disparate datasets together to create a single csv file which is in this repository. I may add additional data if I find some that may be applicable. 
 
 ![alt tag](https://raw.githubusercontent.com/ryanburge/lgbt/master/percent_map.png)
+
+![alt tag](https://raw.githubusercontent.com/ryanburge/lgbt/master/ideo_lgbt.png)
