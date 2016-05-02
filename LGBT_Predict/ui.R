@@ -1,6 +1,7 @@
 
 
-df <- read.csv("D:/lgbt/lgbt_new.csv", stringsAsFactors = FALSE)
+df  <- read.csv("lgbt_new.csv")
+
 myLabels <- c("ID","State", "State Abbreviation" , "Sexual Orientation Tally" , "Gender Identity Tally" , "Overall Tally" , "Total Population of LGBT", "Percent of Population that is LGBT", "State Ideology (Higher = More Liberal)", "Number of Evangelicals (Per 1000)")
 
 
