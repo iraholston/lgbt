@@ -60,6 +60,22 @@ df$evanrate <- df$x
 df$inst6014_nom <- NULL
 df$x <- NULL
 
+elect <- read.csv("D:/lgbt/elec12.csv", stringsAsFactors = FALSE)
+
+elect$obama <- gsub(',', '', elect$obama)
+elect$romney <- gsub(',', '', elect$romney)
+elect$others <- gsub(',', '', elect$others)
+elect$total <- gsub(',', '', elect$total)
+elect$obama <- as.numeric(elect$obama)
+elect$romney <- as.numeric(elect$romney)
+elect$others <- as.numeric(elect$others)
+elect$total <- as.numeric(elect$total)
+elect$obama_share <- elect$obama/elect$total
+elect$romney_share <- elect$romney/elect$total
+
+elect <- elect[-c(9),]
+elect <- select(elect, obama_share, romney_share)
+df <- cbind(df, elect)
 
 
 
