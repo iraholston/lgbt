@@ -88,3 +88,13 @@ aa <- select(aa, percent_AA)
 
 df <- cbind(df, aa)
 
+html = read_html("https://en.wikipedia.org/wiki/List_of_U.S._states_by_Hispanic_and_Latino_population")
+hisp = html_table(html_nodes(html, "table")[[4]])
+hisp$percent_hisp<-hisp$`2012`
+hisp <- hisp[-c(10),]
+
+hisp <- select(hisp, percent_hisp)
+hisp$percent_hisp <- as.numeric(sub("%", "", hisp$percent_hisp))
+
+df <- cbind(df, hisp)
+
