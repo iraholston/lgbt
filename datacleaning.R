@@ -1,10 +1,3 @@
----
-  title: "LGBT Rights"
-author: "Ryan Burge"
-date: "April 22, 2016"
-output: html_document
----
-  
 library(ggplot2)
 library(foreign)
 library(dplyr)
@@ -12,13 +5,12 @@ library(Rcolorbrewer)
 library(XML)
 library(rvest)
 
-setwd("D:/")
 
-ideo <- read.csv("state_ideo.csv", stringsAsFactors = FALSE)
-lgbt <- read.csv("lgbt.csv", stringsAsFactors = FALSE)
-census <- read.dta("relcensus.dta", convert.factors = FALSE)
+ideo <- read.csv("D:/state_ideo.csv", stringsAsFactors = FALSE)
+lgbt <- read.csv("D:/lgbt/lgbt.csv", stringsAsFactors = FALSE)
+census <- read.dta("D:/relcensus.dta", convert.factors = FALSE)
 
-df2 <- aggregate(census$evanrate, list(census$stname), mean, na.rm = TRUE)
+evan <- aggregate(census$evanrate, list(census$stname), mean, na.rm = TRUE)
 
 stateFromLower <-function(x) {
   #read 52 state codes into local variable [includes DC (Washington D.C. and PR (Puerto Rico)]
@@ -49,14 +41,25 @@ stateFromLower <-function(x) {
 }
 
 lgbt$statename<-stateFromLower(lgbt$state)
-df2$statename <- tolower(df2$Group.1)
-df <- merge(lgbt, df2, by=c("statename"))
-ideo <- subset(ideo, year==2014)
-ideo$statename <- tolower(ideo$statename)
+evan$statename <- tolower(evan$Group.1)
+df <- merge(lgbt, evan, by=c("statename"))
+df <- df[-c(9),]
 
-df3 <- merge(df, ideo, by=c("statename"))
-df <- select(df3, statename, state.x, orientation, identity, overall, totalpop, popper, inst6014_nom, x)
-df$ideology <- df$inst6014_nom
+mainline <- aggregate(census$mprtrate, list(census$stname), mean, na.rm = TRUE)
+mainline <- mainline[-c(9),]
+mainline$mainline <- mainline$x
+mainline <- select(mainline, mainline)
+df <- cbind(df, mainline)
+
+
+ideo <- subset(ideo, year==2014)
+ideo$ideology <- ideo$inst6014_nom
+ideo <- select(ideo, ideology)
+
+df <- cbind(df, ideo)
+
+df <- select(df, state, orientation, identity, overall, totalpop, popper, x, mainline, ideology)
+
 df$evanrate <- df$x
 df$inst6014_nom <- NULL
 df$x <- NULL
