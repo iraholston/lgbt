@@ -5,11 +5,12 @@ date: "April 22, 2016"
 output: html_document
 ---
   
-  library(ggplot2)
+library(ggplot2)
 library(foreign)
 library(dplyr)
 library(Rcolorbrewer)
-
+library(XML)
+library(rvest)
 
 setwd("D:/")
 
@@ -77,7 +78,13 @@ elect <- elect[-c(9),]
 elect <- select(elect, obama_share, romney_share)
 df <- cbind(df, elect)
 
+html = read_html("https://en.wikipedia.org/wiki/List_of_U.S._states_by_African-American_population")
+aa = html_table(html_nodes(html, "table")[[3]])
 
+aa$percent_AA <- aa$`% African-American`
+aa$percent_AA <- as.numeric(sub("%", "", aa$percent_AA))
 
+aa <- select(aa, percent_AA)
 
+df <- cbind(df, aa)
 
