@@ -10,8 +10,8 @@
 library(ggplot2)
 
 
-df <- read.csv("D:/lgbt/lgbt_new.csv", stringsAsFactors = FALSE)
-myLabels <- c("ID", "State", "State Abbreviation" , "Sexual Orientation Tally" , "Gender Identity Tally" , "Overall Tally" , "Total Population of LGBT", "Percent of Population that is LGBT", "State Ideology (Higher = More Liberal)", "Number of Evangelicals (Per 1000))")
+df  <- read.csv("lgbt2.csv")
+myLabels <- c("ID", "State Name", "State", "Sexual Orientation Tally" , "Gender Identity Tally" , "Overall LGBT Tally" , "Total Population of LGBT", "Percent of Population that is LGBT", "Number of Mainline Protestants (Per 1000)", "Number of Evangelicals (Per 1000)", "State Ideology (Higher = More Liberal)", "Obama Vote Share - 2012", "Romney Vote Share - 2012", "Percent African American", "Percent Hispanic")
 
 
 library(shiny)
@@ -33,13 +33,11 @@ shinyServer(function(input, output) {
   
   output$myPlot <- renderPlot({p <- ggplot(data = myDataset(), 
                                            aes(x = selectedX, y = selectedY)) +
-    geom_text(aes(label=df$state.x), vjust=-1, hjust=0.5, size=4) +
+    geom_text(aes(label=df$state), vjust=-1, hjust=0.5, size=4) +
     xlab(input$xcol) +
     ylab(input$ycol) 
   if (input$lmline) p <- p + stat_smooth(method = "lm")
-  p <- p + geom_point(data = subset(myDataset(), State == input$county), 
-                      size = 7, colour = "maroon")
-  
+ 
   
   p})
   
