@@ -2,8 +2,8 @@ name: Predicting_LGBT_Rights
 account: ryanburge
 server: shinyapps.io
 appId: 99557
-bundleId: 445306
+bundleId: 447398
 url: https://ryanburge.shinyapps.io/Predicting_LGBT_Rights/
-when: 1462765703.99771
+when: 1462933066.28052
 asMultiple: FALSE
 asStatic: FALSE

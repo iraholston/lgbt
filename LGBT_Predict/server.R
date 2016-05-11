@@ -46,7 +46,7 @@ shinyServer(function(input, output) {
       myX = as.matrix(subset(myDataset(), select = selectedX))
       myY = as.matrix(subset(myDataset(), select = selectedY))
       myCor <- cor.test(myX, myY)
-      paste("The correlation coefficient for these two health indicators is",
+      paste("The correlation coefficient for these two indicators is",
             round(myCor$estimate, digits = 3), "with a 95% confidence interval from",
             round(myCor$conf.int[1], digits = 3), "to",
             round(myCor$conf.int[2], digits = 3), ".")
